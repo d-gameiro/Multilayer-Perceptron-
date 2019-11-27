@@ -56,4 +56,14 @@ optional arguments:
                         Number of epochs waited to execute early stopping
   -nb, --no_batch_too   Perform Gradient Descent also without batches (when
                         batch_size is enabled)
-  -bm, --bonus_metrics  Precision, Recall and F Score metrics```
+  -bm, --bonus_metrics  Precision, Recall and F Score metrics
+  ```
+  
+  Bonuses made (non-exhaustive list):
+  
+  * Select the number of layer
+  * Select the number of unit per layer
+  * Early Stopping
+  * Various Gradient Descent optimization
+  * Visualization
+  * And so on
