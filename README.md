@@ -1,4 +1,4 @@
-Multilayer Perceptron project from school 42
+# Multilayer Perceptron project from school 42
 This project aims to introduce you to artificial neural networks, and implementation of algorithms at the heart of the learning process.
 
 	➜ pip3 install -r requirements.txt
@@ -6,19 +6,24 @@ This project aims to introduce you to artificial neural networks, and implementa
 Example of usage:
 
 For Training:
+
 	➜ python3 mlp_train.py -opt rmsprop adam normal nesterov adagrad -lr 0.005  -b 13 -nb -m 0.5 -bm
 
 Then for Predictions:
+
 	➜ python3 mlp_predict.py
 
 
+Usage:
 
-usage: mlp_train.py [-h] [-L LAYERS] [-U UNITS] [-lr LEARNING_RATE]
+	➜ python3 mlp_train.py -h
+	usage: mlp_train.py [-h] [-L LAYERS] [-U UNITS] [-lr LEARNING_RATE]
                     [-b BATCH_SIZE] [-e EPOCHS] [-la LMBD] [-o OUTLIERS]
                     [-opt {normal,adam,adagrad,nesterov,rmsprop} [{normal,adam,adagrad,nesterov,rmsprop} ...]]
                     [-s] [-m MOMENTUM] [-es] [-p PATIENCE] [-nb] [-bm]
                     [dataset]
 
+```
 positional arguments:
   dataset               a data set
 
@@ -50,4 +55,4 @@ optional arguments:
                         Number of epochs waited to execute early stopping
   -nb, --no_batch_too   Perform Gradient Descent also without batches (when
                         batch_size is enabled)
-  -bm, --bonus_metrics  Precision, Recall and F Score metrics
+  -bm, --bonus_metrics  Precision, Recall and F Score metrics```
