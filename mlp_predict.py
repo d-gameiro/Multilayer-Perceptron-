@@ -1,42 +1,8 @@
 import sys
 import numpy as np
 import pandas as pd
-import inspect
-import re
 import copy
 import logging
-
-
-def describe(arg):
-    frame = inspect.currentframe()
-    callerframeinfo = inspect.getframeinfo(frame.f_back)
-    try:
-        context = inspect.getframeinfo(frame.f_back).code_context
-        caller_lines = ''.join([line.strip() for line in context])
-        m = re.search(r'describe\s*\((.+?)\)$', caller_lines)
-        if m:
-            caller_lines = m.group(1)
-            position = str(callerframeinfo.filename) + "@" + str(callerframeinfo.lineno)
-
-            # Add additional info such as array shape or string length
-            additional = ''
-            if hasattr(arg, "shape"):
-                additional += "[shape={}]".format(arg.shape)
-            elif hasattr(arg, "__len__"):  # shape includes length information
-                additional += "[len={}]".format(len(arg))
-
-            # Use str() representation if it is printable
-            str_arg = str(arg)
-            str_arg = str_arg if str_arg.isprintable() else repr(arg)
-
-            print(position, "describe(" + caller_lines + ") = ", end='')
-            print(arg.__class__.__name__ + "(" + str_arg + ")", additional)
-        else:
-            print("Describe: couldn't find caller context")
-
-    finally:
-        del frame
-        del callerframeinfo
 
 
 def get_data(args):
@@ -77,7 +43,7 @@ def layers_init(hidden_layers, units, n_features, n_class):
     while i < hidden_layers:
         layers.append(layer(units))
         i += 1
-    layers.append(layer(n_class, activation='softmax')) #option
+    layers.append(layer(n_class, activation='softmax'))
     return layers
 
 

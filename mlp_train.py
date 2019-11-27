@@ -1,8 +1,6 @@
 import sys
 import numpy as np
 import pandas as pd
-import inspect
-import re
 import math
 import matplotlib.pyplot as plt
 import copy
@@ -10,38 +8,6 @@ import timeit
 import argparse
 import logging
 from datetime import datetime
-
-
-def describe(arg):
-    frame = inspect.currentframe()
-    callerframeinfo = inspect.getframeinfo(frame.f_back)
-    try:
-        context = inspect.getframeinfo(frame.f_back).code_context
-        caller_lines = ''.join([line.strip() for line in context])
-        m = re.search(r'describe\s*\((.+?)\)$', caller_lines)
-        if m:
-            caller_lines = m.group(1)
-            position = str(callerframeinfo.filename) + "@" + str(callerframeinfo.lineno)
-
-            # Add additional info such as array shape or string length
-            additional = ''
-            if hasattr(arg, "shape"):
-                additional += "[shape={}]".format(arg.shape)
-            elif hasattr(arg, "__len__"):  # shape includes length information
-                additional += "[len={}]".format(len(arg))
-
-            # Use str() representation if it is printable
-            str_arg = str(arg)
-            str_arg = str_arg if str_arg.isprintable() else repr(arg)
-
-            print(position, "describe(" + caller_lines + ") = ", end='')
-            print(arg.__class__.__name__ + "(" + str_arg + ")", additional)
-        else:
-            print("Describe: couldn't find caller context")
-
-    finally:
-        del frame
-        del callerframeinfo
 
 
 # Args Check
@@ -790,7 +756,7 @@ def cross_entropy(predict, y_class, lmbd, net):
 
 def get_stats(df):
     stats = {
-            column: escribe(sub_dict)
+            column: describe(sub_dict)
             for column, sub_dict in
             df.select_dtypes(include='number').to_dict().items()}
     return stats
@@ -802,7 +768,7 @@ def percentile(percent, count, values):
             + (values[math.floor(x) + 1] - values[math.floor(x)]) * (x % 1))
 
 
-def escribe(data):
+def describe(data):
     clean_data = {k: data[k] for k in data if not np.isnan(data[k])}
     values = np.sort(np.array(list(clean_data.values()), dtype=object))
     count = len(clean_data)
