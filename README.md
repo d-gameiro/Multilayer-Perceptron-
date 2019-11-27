@@ -13,6 +13,7 @@ Then for Predictions:
 
 	➜ python3 mlp_predict.py
 
+**Logs will be generated**
 
 Usage:
 
